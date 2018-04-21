@@ -1,0 +1,15 @@
+rest\dynamicdata\AutocompleteResource.class
+LogicFacade\RestCalls.class
+rest\AirlinesResource.class
+rest\CitybenchmarkResource.class
+rest\AirlinebenchmarkResource.class
+rest\CountriesResource.class
+rest\CitiesResource.class
+cors\CorsRequestFilter.class
+rest\AirportsResource.class
+cors\CorsResponseFilter.class
+rest\ApplicationConfig.class
+rest\dynamicdata\TimetablesResource.class
+rest\dynamicdata\FlighttrackerResource.class
+rest\AirplanesResource.class
+rest\AirportbenchmarkResource.class
