@@ -53,6 +53,7 @@ public class AirportsResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+
     public String getAllAirports() throws IOException, MalformedURLException {
         
         //For the entire database of airports. 

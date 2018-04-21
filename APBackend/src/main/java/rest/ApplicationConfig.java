@@ -39,9 +39,9 @@ public class ApplicationConfig extends Application {
         resources.add(rest.CitiesResource.class);
         resources.add(rest.CitybenchmarkResource.class);
         resources.add(rest.CountriesResource.class);
-        resources.add(rest.dynamicdata.AutocompleteResource.class);
-        resources.add(rest.dynamicdata.FlighttrackerResource.class);
-        resources.add(rest.dynamicdata.TimetablesResource.class);
+        resources.add(rest.DynamicData.AutocompleteResource.class);
+        resources.add(rest.DynamicData.FlighttrackerResource.class);
+        resources.add(rest.DynamicData.TimetablesResource.class);
     }
     
 }

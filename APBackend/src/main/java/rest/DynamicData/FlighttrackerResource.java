@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rest.dynamicdata;
+package rest.DynamicData;
 
 import LogicFacade.RestCalls;
 import java.io.IOException;
@@ -57,7 +57,7 @@ public class FlighttrackerResource {
     }
 
     @GET
-    @Path("/countrycode={id}")
+    @Path("/airline={id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getInformationOfSpecificFlightWithAirlines(@PathParam("id") String id) throws IOException, MalformedURLException {
 
@@ -68,7 +68,7 @@ public class FlighttrackerResource {
     }
 
     @GET
-    @Path("/countrycode={id}")
+    @Path("/departure={id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getInformationOfDeparture(@PathParam("id") String id) throws IOException, MalformedURLException {
 
@@ -79,7 +79,7 @@ public class FlighttrackerResource {
     }
 
     @GET
-    @Path("/countrycode={id}")
+    @Path("/arrival={id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getInformationOfArrival(@PathParam("id") String id) throws IOException, MalformedURLException {
 
