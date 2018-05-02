@@ -26,8 +26,9 @@ export default class DateRange extends React.Component {
   handleChangeEnd = (endDate) => this.handleChange({ endDate })
 
   render () {
-    return <div className="row">
-
+    return (
+        <div className="row">
+            <form>
       <div className="column">
       <label> Start Dato
         <DatePicker
@@ -46,7 +47,11 @@ export default class DateRange extends React.Component {
           onChange={this.handleChangeEnd} />
           </label>
       </div>
+      <label>Fra Lufthavn : <input type="text" name="name" /> </label>
+      <label>Fra Lufthavn : <input type="text" name="name" /> </label>
       <input type="submit" value="Submit" />
+    </form>
     </div>
+    );
   }
 }
