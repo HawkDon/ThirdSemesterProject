@@ -6,22 +6,13 @@
 package rest;
 
 import LogicFacade.RestCalls;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
@@ -53,7 +44,7 @@ public class AirplanesResource {
 
         //For the entire database of airplanes.
 
-        return RestCalls.getJsonArray(sURL);
+        return RestCalls.getJsonForAirplanes(sURL);
     }
 
     @GET
@@ -65,7 +56,7 @@ public class AirplanesResource {
 
         String qParameter = "&numberRegistration=" + id;
         
-        return RestCalls.getJsonArrayWithID(sURL, qParameter);
+        return RestCalls.getJsonForAirplanesWithID(sURL, qParameter);
     }
     
     @GET
@@ -77,7 +68,7 @@ public class AirplanesResource {
 
         String qParameter = "&hexIcaoAirplane=" + id;
         
-        return RestCalls.getJsonArrayWithID(sURL, qParameter);
+        return RestCalls.getJsonForAirplanesWithID(sURL, qParameter);
     }
     
     @GET
@@ -89,6 +80,6 @@ public class AirplanesResource {
 
         String qParameter = "&codeIataAirline=" + id;
         
-        return RestCalls.getJsonArrayWithID(sURL, qParameter);
+        return RestCalls.getJsonForAirplanesWithID(sURL, qParameter);
     }
 }

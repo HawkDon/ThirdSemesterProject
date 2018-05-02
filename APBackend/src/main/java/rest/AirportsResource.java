@@ -58,7 +58,7 @@ public class AirportsResource {
         
         //For the entire database of airports. 
         
-        return RestCalls.getJsonArray(sURL);
+        return RestCalls.getJsonForAirports(sURL);
     }
 
     @GET
@@ -70,7 +70,7 @@ public class AirportsResource {
         
         String qParameter = "&codeIataAirport=" + id;
         
-        return RestCalls.getJsonArrayWithID(sURL, qParameter);
+        return RestCalls.getJsonForAirportsWithID(sURL, qParameter);
     }
     
     @GET
@@ -82,6 +82,6 @@ public class AirportsResource {
         
         String qParameter = "&codeIso2Country=" + id;
         
-        return RestCalls.getJsonArrayWithID(sURL, qParameter);
+        return RestCalls.getJsonForAirportsWithID(sURL, qParameter);
     }
 }
