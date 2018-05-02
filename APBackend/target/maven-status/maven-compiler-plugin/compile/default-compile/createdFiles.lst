@@ -1,3 +1,4 @@
+LogicFacade\Redirecter.class
 LogicFacade\RestCalls.class
 rest\AirlinesResource.class
 rest\CitybenchmarkResource.class
