@@ -47,8 +47,8 @@ export default class DateRange extends React.Component {
           onChange={this.handleChangeEnd} />
           </label>
       </div>
-      <label>Fra Lufthavn : <input type="text" name="name" /> </label>
-      <label>Fra Lufthavn : <input type="text" name="name" /> </label>
+      <label>Fra Lufthavn : <input type="text" name="fraLufthavn" /> </label>
+      <label>Til Lufthavn : <input type="text" name="tilLufthavn" /> </label>
       <input type="submit" value="Submit" />
     </form>
     </div>
