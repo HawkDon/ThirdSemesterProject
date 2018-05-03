@@ -31,17 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(cors.CorsRequestFilter.class);
         resources.add(cors.CorsResponseFilter.class);
-        resources.add(rest.AirlinebenchmarkResource.class);
-        resources.add(rest.AirlinesResource.class);
-        resources.add(rest.AirplanesResource.class);
-        resources.add(rest.AirportbenchmarkResource.class);
-        resources.add(rest.AirportsResource.class);
-        resources.add(rest.CitiesResource.class);
-        resources.add(rest.CitybenchmarkResource.class);
-        resources.add(rest.CountriesResource.class);
-        resources.add(rest.DynamicData.AutocompleteResource.class);
-        resources.add(rest.DynamicData.FlighttrackerResource.class);
-        resources.add(rest.DynamicData.TimetablesResource.class);
+        resources.add(rest.TravelflightResource.class);
     }
     
 }

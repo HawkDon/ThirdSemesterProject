@@ -16,11 +16,11 @@ class App extends Component {
 
       <Router>
       <div>
-        <Header />
+        <Header/>
         <Switch>
-        <Route exact path="/" render={() => <Lufthavnsspecs />} />
-        <Route path="/Bilsøgning" render={() => <Bilsøgning/>} />
-        <Route path="/FlightTable" render={() => <FlightTable/>} />
+        <Route exact path="/" />
+        <Route path="/Flights" render={({match}) => <Lufthavnsspecs match={match}/>} />
+        <Route path="/CarSearch" render={({match}) => <Bilsøgning match={match}/>} />
         <Route component={NoMatch}/>
         </Switch>
         </div>
@@ -39,8 +39,8 @@ const Header = () => (
 
   <div>
   <ul className="header">
-    <li><NavLink exact activeClassName="active" to="/">Flyrejse</NavLink></li>
-    <li><NavLink activeClassName="active" to="/Bilsøgning">Lej en bil</NavLink></li>
+    <li><NavLink activeClassName="active" to="/Flights">Flyrejse</NavLink></li>
+    <li><NavLink activeClassName="active" to="/CarSearch">Lej en bil</NavLink></li>
   </ul>
   </div>
 )

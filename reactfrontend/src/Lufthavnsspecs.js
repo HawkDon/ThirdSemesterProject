@@ -1,27 +1,36 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
+import FlightTable from './FlightTable';
 import 'react-datepicker/dist/react-datepicker.css';
+import {
+  NavLink,
+  Switch,
+  Route
+} from 'react-router-dom';
+import FetchFactory from './FetchFactory';
 
 export default class DateRange extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      startDate: moment('2018-02-08'),
-      endDate: moment('2018-02-10')
+      startDate: moment('2018-05-10'),
+      endDate: moment('2018-05-12'),
+      flights: "Fetching!!"
     }
   }
+    
   handleSubmit = (evt) => {
-    evt.preventDefault();
-    var Bilmærke= document.getElementById("fraLufthavn").value;
-    var Lejeområde = document.getElementById("tilLufthavn").value;
-    var startDate = this.state.startDate.format();
-    var endDate = this.state.endDate.format();
-    console.log(startDate)
-    console.log(endDate)
-    console.log(endDate.indexOf("2018-02-10T00:00:00"));
-    console.log(endDate.substring(0, endDate.length - 15));
+    var from= document.getElementById("fraLufthavn").value;
+    var to = document.getElementById("tilLufthavn").value;
+    var endDate = this.state.endDate.format().slice(0,10);
+    var startDate = this.state.startDate.format().slice(0, 10);
+
+    FetchFactory.getFlights(from, to, startDate, endDate).then(res => this.setState({
+      flights: res.PricedItineraries
+    }))
     }
+
   handleChange = ({ startDate, endDate }) => {
     startDate = startDate || this.state.startDate
     endDate = endDate || this.state.endDate
@@ -37,8 +46,8 @@ export default class DateRange extends React.Component {
 
   render () {
     return (
-        <div className="row">
-            <form onSubmit={this.handleSubmit}>
+      <div className="row">
+      <form>
       <div className="column">
       <label> Start Dato
         <DatePicker
@@ -59,8 +68,11 @@ export default class DateRange extends React.Component {
       </div>
       <label>Fra Lufthavn : <input type="text" id="fraLufthavn" /> </label>
       <label>Til Lufthavn : <input type="text" id="tilLufthavn" /> </label>
-      <input type="submit" value="Submit" />
+      <NavLink className="btn btn-primary" onClick={this.handleSubmit} to={`${this.props.match.url}/FlightTable`}>Search fares</NavLink>
     </form>
+    <Switch>
+    <Route path={`${this.props.match.url}/FlightTable`} render={() => <FlightTable flights={this.state.flights}/>} />
+    </Switch>
     </div>
     );
   }
