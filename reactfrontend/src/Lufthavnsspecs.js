@@ -11,7 +11,17 @@ export default class DateRange extends React.Component {
       endDate: moment('2018-02-10')
     }
   }
-
+  handleSubmit = (evt) => {
+    evt.preventDefault();
+    var Bilmærke= document.getElementById("fraLufthavn").value;
+    var Lejeområde = document.getElementById("tilLufthavn").value;
+    var startDate = this.state.startDate.format();
+    var endDate = this.state.endDate.format();
+    console.log(startDate)
+    console.log(endDate)
+    console.log(endDate.indexOf("2018-02-10T00:00:00"));
+    console.log(endDate.substring(0, endDate.length - 15));
+    }
   handleChange = ({ startDate, endDate }) => {
     startDate = startDate || this.state.startDate
     endDate = endDate || this.state.endDate
@@ -28,7 +38,7 @@ export default class DateRange extends React.Component {
   render () {
     return (
         <div className="row">
-            <form>
+            <form onSubmit={this.handleSubmit}>
       <div className="column">
       <label> Start Dato
         <DatePicker
@@ -47,8 +57,8 @@ export default class DateRange extends React.Component {
           onChange={this.handleChangeEnd} />
           </label>
       </div>
-      <label>Fra Lufthavn : <input type="text" name="fraLufthavn" /> </label>
-      <label>Til Lufthavn : <input type="text" name="tilLufthavn" /> </label>
+      <label>Fra Lufthavn : <input type="text" id="fraLufthavn" /> </label>
+      <label>Til Lufthavn : <input type="text" id="tilLufthavn" /> </label>
       <input type="submit" value="Submit" />
     </form>
     </div>

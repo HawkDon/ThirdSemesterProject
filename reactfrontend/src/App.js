@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './App.css';
+import FlightTable from './FlightTable';
 import Lufthavnsspecs from './Lufthavnsspecs';
 import Bilsøgning from './Bilsøgning';
 import {
@@ -11,15 +13,17 @@ import {
 class App extends Component {
   render() {
     return (
+
       <Router>
       <div>
         <Header />
         <Switch>
         <Route exact path="/" render={() => <Lufthavnsspecs />} />
         <Route path="/Bilsøgning" render={() => <Bilsøgning/>} />
+        <Route path="/FlightTable" render={() => <FlightTable/>} />
         <Route component={NoMatch}/>
         </Switch>
-      </div>
+        </div>
   </Router>
     );
   }
