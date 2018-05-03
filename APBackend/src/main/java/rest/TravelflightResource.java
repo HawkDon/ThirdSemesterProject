@@ -45,10 +45,30 @@ public class TravelflightResource {
     @GET
     @Path("/originlocation={from}&destination={to}&lengthofstay={days}&departuredate={date}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson(@PathParam("from") String from, @PathParam("to") String to, @PathParam("days") String days, @PathParam("date") String date) throws IOException {
+    public String getJsonForCheapestTravelWithDays(@PathParam("from") String from, @PathParam("to") String to, @PathParam("days") String days, @PathParam("date") String date) throws IOException {
 
         String endString = TRAVEL + "origin=" + from + "&destination=" + to + "&lengthofstay=" + days + "&departuredate=" + date + "&pointofsalecountry=US";
 
+        return RestCalls.getJsonFromFlightTravel(endString);
+    }
+    
+    @GET
+    @Path("/originlocation={from}&destination={to}&departuredate={startDate}&returndate={endDate}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJsonForCheapestTravelWithDate(@PathParam("from") String from, @PathParam("to") String to, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws IOException {
+        
+        String endString = "https://api-crt.cert.havail.sabre.com/v2/shop/flights?" + "origin=" + from + "&destination=" + to + "&departuredate=" + startDate + "&returndate=" + endDate + "&pointofsalecountry=US";
+       
+        return RestCalls.getJsonFromFlightTravel(endString);
+    }
+    
+    @GET
+    @Path("/originlocation={from}&destination={to}&departuredate={startDate}&returndate={endDate}&sortby={category}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJsonForTravel(@PathParam("from") String from, @PathParam("to") String to, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate, @PathParam("category") String category) throws IOException {
+                                                                                                                                                                                                                                                                                                              
+        String endString = "https://api-crt.cert.havail.sabre.com/v1/shop/flights?" + "origin=" + from + "&destination=" + to + "&departuredate=" + startDate + "&returndate=" + endDate + "&onlineitinerariesonly=N&limit=20&offset=1&eticketsonly=N&sortby=" + category + "&order=asc&sortby2="+ category + "&order2=asc&pointofsalecountry=US";
+       
         return RestCalls.getJsonFromFlightTravel(endString);
     }
 }
