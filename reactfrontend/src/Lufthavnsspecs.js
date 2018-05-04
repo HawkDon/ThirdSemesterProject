@@ -21,8 +21,8 @@ export default class DateRange extends React.Component {
     }
   }
     
-  handleSubmit = (evt) => {
-    var from= document.getElementById("fraLufthavn").value;
+  handleSubmit = () => {
+    var from = document.getElementById("fraLufthavn").value;
     var to = document.getElementById("tilLufthavn").value;
     var endDate = this.state.endDate.format().slice(0,10);
     var startDate = this.state.startDate.format().slice(0, 10);

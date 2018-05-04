@@ -1,12 +1,11 @@
 package cors;
 
-import java.io.IOException;
-import java.util.logging.Logger;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.ext.Provider;
+import java.util.logging.Logger;
 
 //Comment out the two annotations below to disable CORS-handling
 @Provider
@@ -14,8 +13,7 @@ import javax.ws.rs.ext.Provider;
 public class CorsResponseFilter implements ContainerResponseFilter {
   private final static Logger LOG = Logger.getLogger(CorsResponseFilter.class.getName());
   @Override
-  public void filter( ContainerRequestContext requestCtx, ContainerResponseContext res )
-    throws IOException {
+  public void filter( ContainerRequestContext requestCtx, ContainerResponseContext res ) {
     LOG.info( "Executing REST response filter" );
     res.getHeaders().add("Access-Control-Allow-Origin", "*" );
     res.getHeaders().add("Access-Control-Allow-Credentials", "true" );
