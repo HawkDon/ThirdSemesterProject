@@ -14,8 +14,8 @@ export default class CarSearch extends React.Component {
   }
   handleSubmit = (evt) => {
     evt.preventDefault();
-    var Bilmærke= document.getElementById("Bilmærke").value;
-    var Lejeområde = document.getElementById("Lejeområde").value;
+    //var Bilmærke= document.getElementById("Bilmærke").value;
+    //var Lejeområde = document.getElementById("Lejeområde").value;
     var startDate = this.state.startDate.format();
     var endDate = this.state.endDate.format();
     console.log(startDate)

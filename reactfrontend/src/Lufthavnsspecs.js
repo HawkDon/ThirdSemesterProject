@@ -16,7 +16,8 @@ export default class DateRange extends React.Component {
     this.state = {
       startDate: moment('2018-05-10'),
       endDate: moment('2018-05-12'),
-      flights: "Fetching!!"
+      flights: "Fetching!!",
+      price: "Fetching!!"
     }
   }
     
@@ -27,7 +28,11 @@ export default class DateRange extends React.Component {
     var startDate = this.state.startDate.format().slice(0, 10);
 
     FetchFactory.getFlights(from, to, startDate, endDate).then(res => this.setState({
-      flights: res.PricedItineraries
+      flights: res.PricedItineraries.map(res => res.AirItinerary.OriginDestinationOptions.OriginDestinationOption.map(res => res.FlightSegment.map(res => <tr key={res.DepartureDateTime}><td>{res.DepartureAirport.LocationCode}</td><td>{res.DepartureDateTime}</td><td>{res.ArrivalAirport.LocationCode}</td><td>{res.ArrivalDateTime}</td><td>{res.MarketingAirline.Code}</td></tr>))),
+      price: res.PricedItineraries.map(res => "Amount of USD: " + res.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.TotalFare.Amount)
+    }, () => {
+      console.log(this.state.flights)
+      console.log(this.state.price)
     }))
     }
 
