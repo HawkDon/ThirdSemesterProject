@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+=======
+LogicFacade\Redirecter.class
+LogicFacade\RestCalls.class
+rest\AirlinesResource.class
+rest\CitybenchmarkResource.class
+rest\AirlinebenchmarkResource.class
+rest\CountriesResource.class
+rest\DynamicData\TimetablesResource.class
+rest\CitiesResource.class
+Entity\Message.class
+>>>>>>> 82f5e5f57d38cf7af819cca69222563f55cb5347
 cors\CorsRequestFilter.class
 cors\CorsResponseFilter.class
 LogicFacade\RestCalls.class
