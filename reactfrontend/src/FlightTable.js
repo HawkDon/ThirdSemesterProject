@@ -5,16 +5,25 @@ export default class FlightTable extends Component {
     render(){
         return (
             <div>
+                {this.props.flights === "Fetching!!" ? 
+                (
+                <div>
+                    <h2>Please wait while your data gets fetched...</h2>
+                </div>
+                ) : (
+                <div>
                 <table>
                     <thead>
-                    <tr><th>Travelling from</th><th>Time of Departure</th><th>Target Destination</th><th>Time of Arrival</th><th>Production Line</th><th>Choose your travel</th></tr>
+                    <tr><th>Travelling from</th><th>Date of Departure</th><th>Time of Departure</th><th>Target Destination</th><th>Date of Arrival</th><th>Time of Arrival</th><th>Production Line</th><th>Price</th></tr>
                     </thead>
                     <tbody>
                         {this.props.flights}
                     </tbody>
                 </table>
                 <br/>
+            </div>) }
             </div>
-        )}
+        )
     }
+}
  

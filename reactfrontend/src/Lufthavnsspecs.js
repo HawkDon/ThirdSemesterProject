@@ -10,30 +10,58 @@ import {
 } from 'react-router-dom';
 import FetchFactory from './FetchFactory';
 
+function departureToArival (FlightData, getPrice) {
+  let i, o;
+  var flightInformation = [];
+  for (i = 0; i < 20; i++) {
+    for (o = 0; o < FlightData[i].length; o++) {
+      flightInformation.push(FlightData[i][0][o].map(res => res).concat(getPrice[i]));
+    }
+    o = 0;
+  }
+  return flightInformation;
+}
+
 export default class DateRange extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       startDate: moment('2018-05-10'),
       endDate: moment('2018-05-12'),
-      flights: "Fetching!!",
-      price: "Fetching!!"
+      flights: "Fetching!!"
     }
   }
     
-  handleSubmit = () => {
-    var from = document.getElementById("fraLufthavn").value;
-    var to = document.getElementById("tilLufthavn").value;
-    var endDate = this.state.endDate.format().slice(0,10);
-    var startDate = this.state.startDate.format().slice(0, 10);
+  handleSubmit = async () => {
+    let from = document.getElementById("fraLufthavn").value;
+    let to = document.getElementById("tilLufthavn").value;
+    let endDate = this.state.endDate.format().slice(0,10);
+    let startDate = this.state.startDate.format().slice(0, 10);
+    
+    //Get Price
+    let getPrice = await FetchFactory.getFlights(from, to, startDate, endDate)
+    .then(res => res.PricedItineraries.map(res => res.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.TotalFare.Amount));
 
-    FetchFactory.getFlights(from, to, startDate, endDate).then(res => this.setState({
-      flights: res.PricedItineraries.map(res => res.AirItinerary.OriginDestinationOptions.OriginDestinationOption.map(res => res.FlightSegment.map(res => <tr key={res.DepartureDateTime}><td>{res.DepartureAirport.LocationCode}</td><td>{res.DepartureDateTime}</td><td>{res.ArrivalAirport.LocationCode}</td><td>{res.ArrivalDateTime}</td><td>{res.MarketingAirline.Code}</td></tr>))),
-      price: res.PricedItineraries.map(res => "Amount of USD: " + res.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.TotalFare.Amount)
-    }, () => {
-      console.log(this.state.flights)
-      console.log(this.state.price)
-    }))
+    //Get Information
+    let getFlightDataStrings = await FetchFactory.getFlights(from, to, startDate, endDate)
+    .then(res => res.PricedItineraries
+    .map(res => res.AirItinerary.OriginDestinationOptions.OriginDestinationOption
+    .map(res => res.FlightSegment
+    .map(res => `${res.DepartureAirport.LocationCode} ${res.DepartureDateTime.slice(0,10)} ${res.DepartureDateTime.slice(11,19)} ${res.ArrivalAirport.LocationCode} ${res.ArrivalDateTime.slice(0,10)} ${res.ArrivalDateTime.slice(11,19)} ${res.MarketingAirline.Code}`))
+    ))
+    .catch(err => err);
+
+    //Convert info to array
+    let convertFlightDataToArray = getFlightDataStrings.map(res => res.map(res => res.map(res => res.split(" "))));
+
+    //Implement price to the flight array
+    let flightinformationWithPrice = await departureToArival(convertFlightDataToArray, getPrice);
+
+    let i = 0;
+    this.setState({
+      flights: flightinformationWithPrice.map(res => <tr key={i++}>{res.map(res => <td key={i++}>{res}</td>)}</tr>)
+    });
+
     }
 
   handleChange = ({ startDate, endDate }) => {
