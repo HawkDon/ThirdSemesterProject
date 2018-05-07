@@ -6,14 +6,15 @@
 package rest;
 
 import LogicFacade.RestCalls;
-import java.io.IOException;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
+import java.io.IOException;
 
 /**
  * REST Web Service
@@ -42,6 +43,8 @@ public class TravelflightResource {
      * @param date
      * @return an instance of java.lang.String
      */
+    
+    //Get cheapest travel with days
     @GET
     @Path("/originlocation={from}&destination={to}&lengthofstay={days}&departuredate={date}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -52,6 +55,7 @@ public class TravelflightResource {
         return RestCalls.getJsonFromFlightTravel(endString);
     }
     
+    //Get cheapest travel with date
     @GET
     @Path("/originlocation={from}&destination={to}&departuredate={startDate}&returndate={endDate}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -61,7 +65,7 @@ public class TravelflightResource {
        
         return RestCalls.getJsonFromFlightTravel(endString);
     }
-    
+    //Get JsonForTravel and return
     @GET
     @Path("/originlocation={from}&destination={to}&departuredate={startDate}&returndate={endDate}&sortby={category}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -71,4 +75,27 @@ public class TravelflightResource {
        
         return RestCalls.getJsonFromFlightTravel(endString);
     }
+
+    //Get countrycodes
+    @GET
+    @Path("/countrycodes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJsonCountryCodes() throws IOException {
+
+        String endString = "https://api-crt.cert.havail.sabre.com/v1/lists/supported/countries";
+
+        return RestCalls.getJsonFromFlightTravel(endString);
+    }
+    
+    //Get countrycodes
+    @GET
+    @Path("/country={id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJsonAirportsByCountryCode(@PathParam("id") String id) throws IOException {
+
+        String endString = "https://api-crt.cert.havail.sabre.com/v1/lists/supported/cities?country=" + id;
+
+        return RestCalls.getJsonFromFlightTravel(endString);
+    }
+    
 }
