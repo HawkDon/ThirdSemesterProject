@@ -28,6 +28,8 @@ export default class DateRange extends React.Component {
 
     FetchFactory.getFlights(from, to, startDate, endDate).then(res => this.setState({
       flights: res.PricedItineraries
+    }, () => {
+      console.log(this.state.flights)
     }))
     }
 

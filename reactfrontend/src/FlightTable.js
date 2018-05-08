@@ -15,9 +15,9 @@ export default class FlightTable extends Component {
             flights: this.props.flights
         }, () => {
             console.log(this.state.flights)
-            if(this.state.flights != "Fetching!") {
+           /* if(this.state.flights != "Fetching!") {
                 this.state.flights.map(flight => <tr key={flight.AirItinerary.OriginDestinationOptions.OriginDestinationOption[0]}><td></td></tr>)
-            } 
+            } */
         })
     }
     render(){
@@ -32,7 +32,9 @@ export default class FlightTable extends Component {
         ) : (
             <div>
                 <table>
+                    <thead>
                     <tr><th>Traveling from</th><th>Time of Departure</th><th>Target Destination</th><th>Time of Arrival</th><th>Production Line</th><th>Choose your travel</th></tr>
+                    </thead>
                     <tbody>
                         {mappingOfFlights}
                     </tbody>
