@@ -33,17 +33,17 @@ export default class DateRange extends React.Component {
   }
     
   handleSubmit = async () => {
-    let from = document.getElementById("fraLufthavn").value;
-    let to = document.getElementById("tilLufthavn").value;
-    let endDate = this.state.endDate.format().slice(0,10);
-    let startDate = this.state.startDate.format().slice(0, 10);
+    const from = document.getElementById("fraLufthavn").value;
+    const to = document.getElementById("tilLufthavn").value;
+    const endDate = this.state.endDate.format().slice(0,10);
+    const startDate = this.state.startDate.format().slice(0, 10);
     
     //Get Price
-    let getPrice = await FetchFactory.getFlights(from, to, startDate, endDate)
+    const getPrice = await FetchFactory.getFlights(from, to, startDate, endDate)
     .then(res => res.PricedItineraries.map(res => res.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.TotalFare.Amount));
 
     //Get Information
-    let getFlightDataStrings = await FetchFactory.getFlights(from, to, startDate, endDate)
+    const getFlightDataStrings = await FetchFactory.getFlights(from, to, startDate, endDate)
     .then(res => res.PricedItineraries
     .map(res => res.AirItinerary.OriginDestinationOptions.OriginDestinationOption
     .map(res => res.FlightSegment
@@ -52,10 +52,10 @@ export default class DateRange extends React.Component {
     .catch(err => err);
 
     //Convert info to array
-    let convertFlightDataToArray = getFlightDataStrings.map(res => res.map(res => res.map(res => res.split(" "))));
+    const convertFlightDataToArray = getFlightDataStrings.map(res => res.map(res => res.map(res => res.split(" "))));
 
     //Implement price to the flight array
-    let flightinformationWithPrice = await departureToArival(convertFlightDataToArray, getPrice);
+    const flightinformationWithPrice = await departureToArival(convertFlightDataToArray, getPrice);
 
     let i = 0;
     this.setState({
