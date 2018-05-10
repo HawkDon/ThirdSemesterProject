@@ -14,7 +14,7 @@ export default class FlightTable extends Component {
                 <div>
                 <table>
                     <thead>
-                    <tr><th>Travelling from</th><th>Date of Departure</th><th>Time of Departure</th><th>Target Destination</th><th>Date of Arrival</th><th>Time of Arrival</th><th>Production Line</th><th>Price</th></tr>
+                    <tr><th>Travelling from and to</th><th>Date and Time of Departure</th><th>Date and Time of Arrival</th><th>Production Line</th><th>Price</th></tr>
                     </thead>
                     <tbody>
                         {this.props.flights}

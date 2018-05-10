@@ -8,8 +8,21 @@ import {
   NavLink,
   Switch
 } from 'react-router-dom'
+import fetchFactory from './FetchFactory';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      airportLabels: ""
+    }
+  }
+  componentDidMount() {
+    fetchFactory.getLabelsForAirports()
+    .then(res => this.setState({
+      airportLabels: res
+    }))
+  }
   render() {
     return (
 
@@ -18,7 +31,7 @@ class App extends Component {
         <Header/>
         <Switch>
         <Route exact path="/" />
-        <Route path="/Flights" render={({match}) => <Lufthavnsspecs match={match}/>} />
+        <Route path="/Flights" render={({match}) => <Lufthavnsspecs match={match} airportLabels={this.state.airportLabels}/>} />
         <Route path="/CarSearch" render={({match}) => <BilSøgning match={match}/>} />
         <Route component={NoMatch}/>
         </Switch>

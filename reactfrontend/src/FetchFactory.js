@@ -11,6 +11,11 @@ class FetchFactory {
         return fetch("https://hawkdon.dk/booking/api/travelflight/originlocation=" + from + "&destination="+ to +"&departuredate=" + startDate + "&returndate=" + endDate + "&sortby=totalfare")
         .then(handleHttpErrors)
     }
+
+    getLabelsForAirports = () => {
+        return fetch("https://hawkdon.dk/booking/api/airport/labels")
+        .then(handleHttpErrors)
+    }
   
   }
   
