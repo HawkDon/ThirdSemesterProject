@@ -11,9 +11,10 @@ import {
 import FetchFactory from './FetchFactory';
 
 function departureToArival (FlightData, getPrice) {
+  console.log(FlightData);
   let i, o;
   var flightInformation = [];
-  for (i = 0; i < 20; i++) {
+  for (i = 0; i < FlightData.length; i++) {
     for (o = 0; o < FlightData[i].length; o++) {
       flightInformation.push(FlightData[i][0][o].map(res => res).concat(getPrice[i]));
     }
@@ -22,13 +23,15 @@ function departureToArival (FlightData, getPrice) {
   return flightInformation;
 }
 
+
 export default class DateRange extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       startDate: moment('2018-05-10'),
       endDate: moment('2018-05-12'),
-      flights: "Fetching!!"
+      flights: "Fetching!!",
+      flightsWithPrice : ""
     }
   }
     
@@ -56,10 +59,12 @@ export default class DateRange extends React.Component {
 
     //Implement price to the flight array
     const flightinformationWithPrice = await departureToArival(convertFlightDataToArray, getPrice);
-
+console.log(flightinformationWithPrice + " flights hehe");
     let i = 0;
+    let j = 0;    
     this.setState({
-      flights: flightinformationWithPrice.map(res => <tr key={i++}>{res.map(res => <td key={i++}>{res}</td>)}</tr>)
+      flightsWithPrice: flightinformationWithPrice,
+      flights: flightinformationWithPrice.map(res => <tr key={i}>{res.map(res => <td key={j++}>{res}</td>)}<td><input type="checkbox" name="myFlight" id={i++}/></td></tr>)
     });
 
     }
@@ -104,7 +109,7 @@ export default class DateRange extends React.Component {
       <NavLink className="btn btn-primary" onClick={this.handleSubmit} to={`${this.props.match.url}/FlightTable`}>Search fares</NavLink>
     </form>
     <Switch>
-    <Route path={`${this.props.match.url}/FlightTable`} render={() => <FlightTable flights={this.state.flights}/>} />
+    <Route path={`${this.props.match.url}/FlightTable`} render={({match}) => <FlightTable match={match} flights={this.state.flights} flightsWithPrice={this.state.flightsWithPrice}/>} />
     </Switch>
     </div>
     );
