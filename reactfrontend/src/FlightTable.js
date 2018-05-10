@@ -11,44 +11,53 @@ import {
     constructor (props) {
         super(props)
         this.state = {
-            tableArr1: "" 
+            tableArr: "" 
         }
     }
         handleSubmitData = async (event) => {
+            // Get values
             let checkboxes = document.getElementsByName("myFlight");
-            let choosenFlights = [];
-            
-            for(var i = 0; i < checkboxes.length; i++){
-                //console.log(document.getElementsByName("myFlight")[i].checked);
-                let cb = checkboxes[i];         
+            let table = document.getElementById("FlightTable");
+
+            //Assign new array variable for new table.
+            let tableArr = [];
+
+            for(let i = 0; i < checkboxes.length; i++){
+
+                //Get the specific button.
+                let cb = checkboxes[i];
+
+                //td table rows begins at 1. 0 is th.
+                let j = i + 1;
+
+                //Check if the button is pressed and render table.
                 if(cb.checked === true){
-                    choosenFlights.push(cb);
-                    var tableArr = [];
-                    var table = document.getElementById("FlightTable");
-                    for ( var i = 1; i < table.rows.length; i++ ) {
                         tableArr.push({
-                        travelingFrom: table.rows[i].cells[0].innerHTML,
-                        dateOfDeparture: table.rows[i].cells[1].innerHTML,
-                        timeOfDeparture: table.rows[i].cells[2].innerHTML,
-                        targetDestination: table.rows[i].cells[3].innerHTML,
-                        dateOfArrival: table.rows[i].cells[4].innerHTML,
-                        timeOfArrival: table.rows[i].cells[5].innerHTML,
-                        productionLine: table.rows[i].cells[6].innerHTML,
-                        price: table.rows[i].cells[7].innerHTML,
+                        travelingFrom: table.rows[j].cells[0].innerText,
+                        travellingTo: table.rows[j].cells[1].innerText,
+                        dateOfDeparture: table.rows[j].cells[2].innerText,
+                        timeOfDeparture: table.rows[j].cells[3].innerText,
+                        dateOfArrival: table.rows[j].cells[4].innerText,
+                        timeOfArrival: table.rows[j].cells[5].innerText,
+                        productionLine: table.rows[j].cells[6].innerText,
+                        price: table.rows[j].cells[7].innerText,
                     });
-                   
-                    var tableArray = tableArr.map(res => <tr key={i}><td>{res.travelingFrom}</td><td>{res.timeOfDeparture}</td><td>{res.timeOfArrival}</td><td>{res.productionLine}</td><td>{res.price}</td><td>{res.dateOfDeparture}</td><td>{res.dateOfArrival}</td></tr>)
-                    console.log("hej emdedf" + tableArray)
-                this.setState({
-                    tableArr1: tableArray
-                  });
-            }
-            }
         }
-            console.log(document.getElementById("FlightTable").rows[1]);
-           // console.log(this.props.flightsWithPrice);
-            console.log(choosenFlights);
-            console.log(tableArr);
+    }
+
+    //Set state to render a table in confirmation
+        this.setState({
+        tableArr: tableArr.map((res, index) =>
+        <tr key={index}><td>{res.travelingFrom}</td>
+        <td>{res.travellingTo}</td>
+        <td>{res.dateOfDeparture}</td>
+        <td>{res.timeOfDeparture}</td>
+        <td>{res.dateOfArrival}</td>
+        <td>{res.timeOfArrival}</td>
+        <td>{res.productionLine}</td>
+        <td>{res.price}</td>
+        </tr>)
+        });
         }
     render(){
         return (
@@ -63,7 +72,7 @@ import {
                     <form>
                 <table id="FlightTable">
                     <thead>
-                    <tr><th>Travelling from</th><th>Travelling to</th><th>Date of Departure</th><th>Time of Departure</th><th>Date of Arrival</th><th>Time of Arrival</th><th>Production Line</th><th>Price</th></tr>
+                    <tr><th>Travelling from</th><th>Travelling to</th><th>Date of Departure</th><th>Time of Departure</th><th>Date of Arrival</th><th>Time of Arrival</th><th>Production Line</th><th>Price</th><th>Choose Flight</th></tr>
                     </thead>
                     <tbody>
                         {this.props.flights}
@@ -71,8 +80,9 @@ import {
                 </table>
                 <br/>
                 <NavLink className="btn btn-primary" onClick={this.handleSubmitData} to={`${this.props.match.url}/Confirmation`}>Confirm Selection</NavLink>
+                <br/><br/>
                 <Switch>
-                <Route path={`${this.props.match.url}/Confirmation`} render={({match}) => <Confirmation match={match} tableArr1={this.props.tableArr1}/>}/>
+                <Route path={`${this.props.match.url}/Confirmation`} render={({match}) => <Confirmation match={match} tableArr1={this.state.tableArr}/>}/>
                 </Switch>
                 </form>
             </div>) }

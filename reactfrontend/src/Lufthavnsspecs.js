@@ -12,10 +12,16 @@ import FetchFactory from './FetchFactory';
 import Autocomplete from 'react-autocomplete';
 
 function getArrayWithPrice (simpleArrayForFlightInformation, getPrice) {
-  console.log(simpleArrayForFlightInformation);
   const arrayFlight = simpleArrayForFlightInformation.map(res => res.split(" "));
-  const arrayFlightsWithPrice = arrayFlight.map((res,index,arr) => console.log(arr[index]) );
-  return arrayFlight;
+  let thirdArray = [];
+  let lengthForLoop = arrayFlight.length / 2;
+  let element;
+  for(let i = 0; i < lengthForLoop; i++) {
+      element = getPrice.shift() / 2;
+      thirdArray.push(arrayFlight[i].concat(element));
+      thirdArray.push(arrayFlight[i + 1].concat(element));
+  }
+  return thirdArray;
 }
 
 function handleResponse (res, index, arr, from, to) {
@@ -30,8 +36,8 @@ function handleResponse (res, index, arr, from, to) {
       <td>{res[11]}</td>
       <td>{res[12]}</td>
       <td>{res[6]}</td>
-      <td>{res[6]}</td>
-      <td><input type="checkbox" name="myFlight" id={i++}/></td>
+      <td>{res[14]}</td>
+      <td><input type="checkbox" name="myFlight" id={index++}/></td>
       </tr>
   } else if(res[0] == to) {
     return <tr key={index++}>
@@ -42,8 +48,8 @@ function handleResponse (res, index, arr, from, to) {
       <td>{res[11]}</td>
       <td>{res[12]}</td>
       <td>{res[6]}</td>
-      <td>{res[6]}</td>
-      <td><input type="checkbox" name="myFlight" id={i++}/></td>
+      <td>{res[14]}</td>
+      <td><input type="checkbox" name="myFlight" id={index++}/></td>
       </tr>
   }
 }
@@ -75,11 +81,11 @@ export default class DateRange extends React.Component {
     const endDate = this.state.endDate.format().slice(0,10);
     const startDate = this.state.startDate.format().slice(0, 10);
     
-    //Get Price
+    //Get Price from fetch
     const getPrice = await FetchFactory.getFlights(from, to, startDate, endDate)
     .then(res => res.PricedItineraries.map(res => res.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.TotalFare.Amount));
     
-    //Get Information
+    //Get Information from fetch
     const getFlightDataStrings = await FetchFactory.getFlights(from, to, startDate, endDate)
     .then(res => res.PricedItineraries
     .map(res => res.AirItinerary.OriginDestinationOptions.OriginDestinationOption
