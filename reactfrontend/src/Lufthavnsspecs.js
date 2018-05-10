@@ -30,6 +30,8 @@ function handleResponse (res, index, arr, from, to) {
       <td>{res[11]}</td>
       <td>{res[12]}</td>
       <td>{res[6]}</td>
+      <td>{res[6]}</td>
+      <td><input type="checkbox" name="myFlight" id={i++}/></td>
       </tr>
   } else if(res[0] == to) {
     return <tr key={index++}>
@@ -40,6 +42,8 @@ function handleResponse (res, index, arr, from, to) {
       <td>{res[11]}</td>
       <td>{res[12]}</td>
       <td>{res[6]}</td>
+      <td>{res[6]}</td>
+      <td><input type="checkbox" name="myFlight" id={i++}/></td>
       </tr>
   }
 }
@@ -51,6 +55,7 @@ function simplifyArray (getFlightDataStrings) {
   .map(res => simpleArrayForFlightInformation.push(res.join(' '))))
   return simpleArrayForFlightInformation;
 }
+
 
 export default class DateRange extends React.Component {
   constructor (props) {
@@ -162,7 +167,7 @@ export default class DateRange extends React.Component {
       <NavLink className="btn btn-primary" onClick={this.handleSubmit} to={`${this.props.match.url}/FlightTable`}>Search fares</NavLink>
     </form>
     <Switch>
-    <Route path={`${this.props.match.url}/FlightTable`} render={() => <FlightTable flights={this.state.flights}/>} />
+    <Route path={`${this.props.match.url}/FlightTable`} render={({match}) => <FlightTable match={match} flights={this.state.flights}/>} />
     </Switch>
     </div>
     );
