@@ -11,18 +11,37 @@ import {
 import FetchFactory from './FetchFactory';
 import Autocomplete from 'react-autocomplete';
 
-function departureToArival (simpleArrayForFlightInformation, getPrice) {
-  const arrayFlight = simpleArrayForFlightInformation.map(res => res.split(" "))
+function getArrayWithPrice (simpleArrayForFlightInformation, getPrice) {
+  console.log(simpleArrayForFlightInformation);
+  const arrayFlight = simpleArrayForFlightInformation.map(res => res.split(" "));
+  const arrayFlightsWithPrice = arrayFlight.map((res,index,arr) => console.log(arr[index]) );
   return arrayFlight;
 }
 
-function handleResponse (res,index,arr) {
+function handleResponse (res, index, arr, from, to) {
+  const filterDeparture = res.filter(word => word == from);
+  const filterArrival = res.filter(word => word == to);
+  if (res[0] == from) {
     return <tr key={index++}>
-      <td>{res[0] + " -> " + res[3]}</td>
-      <td>{res[1] + " " + res[2]}</td>
-      <td>{res[4] + " " + res[5]}</td>
+      <td>{filterDeparture}</td>
+      <td>{filterArrival}</td>
+      <td>{res[1]}</td>
+      <td>{res[2]}</td>
+      <td>{res[11]}</td>
+      <td>{res[12]}</td>
       <td>{res[6]}</td>
       </tr>
+  } else if(res[0] == to) {
+    return <tr key={index++}>
+      <td>{filterArrival}</td>
+      <td>{filterDeparture}</td>
+      <td>{res[1]}</td>
+      <td>{res[2]}</td>
+      <td>{res[11]}</td>
+      <td>{res[12]}</td>
+      <td>{res[6]}</td>
+      </tr>
+  }
 }
 
 function simplifyArray (getFlightDataStrings) {
@@ -37,8 +56,8 @@ export default class DateRange extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      startDate: moment('2018-05-10'),
-      endDate: moment('2018-05-12'),
+      startDate: moment('2018-05-14'),
+      endDate: moment('2018-05-17'),
       flights: "Fetching!!",
       airportcode1: "",
       airportcode2: ""
@@ -54,7 +73,6 @@ export default class DateRange extends React.Component {
     //Get Price
     const getPrice = await FetchFactory.getFlights(from, to, startDate, endDate)
     .then(res => res.PricedItineraries.map(res => res.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.TotalFare.Amount));
-
     
     //Get Information
     const getFlightDataStrings = await FetchFactory.getFlights(from, to, startDate, endDate)
@@ -69,10 +87,10 @@ export default class DateRange extends React.Component {
     const simplesimplifyArray = simplifyArray(getFlightDataStrings);
 
     //Implement price to the flight array
-    const flightinformationWithPrice = departureToArival(simplesimplifyArray, getPrice);
+    const flightinformationWithPrice = getArrayWithPrice(simplesimplifyArray, getPrice);
 
     this.setState({
-      flights: flightinformationWithPrice.map((res,index,arr) => handleResponse(res,index,arr))
+      flights: flightinformationWithPrice.map((res,index,arr) => handleResponse(res,index,arr,from,to))
     });
 
     }
