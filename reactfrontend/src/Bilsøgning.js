@@ -2,26 +2,29 @@ import React from 'react'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css';
+import Autocomplete from 'react-autocomplete';
 
 export default class CarSearch extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      startDate: moment('2018-02-08'),
-      endDate: moment('2018-02-10'),
+      startDate: moment('2018-05-20'),
+      endDate: moment('2018-05-25'),
+      locations: "",
+      makes: ""
     }
     
   }
+
   handleSubmit = (evt) => {
+    let date = new Date("1995-01-17");
+    console.log(date);
+    console.log(date.getMonth());
     evt.preventDefault();
     //var Bilmærke= document.getElementById("Bilmærke").value;
     //var Lejeområde = document.getElementById("Lejeområde").value;
     var startDate = this.state.startDate.format();
     var endDate = this.state.endDate.format();
-    console.log(startDate)
-    console.log(endDate)
-    console.log(endDate.indexOf("2018-02-10T00:00:00"));
-    console.log(endDate.substring(0, endDate.length - 15));
     }
 
   handleChange = ({ startDate, endDate }) => {
@@ -59,8 +62,36 @@ export default class CarSearch extends React.Component {
           onChange={this.handleChangeEnd} />
           </label>
       </div>
-      <label>Afhentningsted og afleveringsted : <input type="text" name="Lejeområde" id="Lejeområde"/> </label>
-      <label>Bilmærke : <input type="text" name="Bilmærke" id="Bilmærke" /></label>
+      <label> Afhentningsted og afleveringsted :
+        <Autocomplete
+        getItemValue={(item) => item.location}
+        items={this.props.cars}
+        shouldItemRender={(item, value) => item.location.toLowerCase().indexOf(value.toLowerCase()) > -1}
+        renderItem={(item, isHighlighted) =>
+        <div key={item.location} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+        {item.location}
+        </div>
+      }
+        value={this.state.locations}
+        onChange={(e) => this.setState({ locations: e.target.value })}
+        onSelect={(locations) => this.setState({ locations })}
+        />
+      </label>
+      <label>Bilmærke :
+        <Autocomplete
+        getItemValue={(item) => item.make}
+        items={this.props.cars}
+        shouldItemRender={(item, value) => item.make.toLowerCase().indexOf(value.toLowerCase()) > -1}
+        renderItem={(item, isHighlighted) =>
+        <div key={item.make} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+        {item.make}
+        </div>
+      }
+        value={this.state.makes}
+        onChange={(e) => this.setState({ makes: e.target.value })}
+        onSelect={(makes) => this.setState({ makes })}
+        />
+        </label>
       <input type="submit" value="Submit"/>
     </form>
     </div>

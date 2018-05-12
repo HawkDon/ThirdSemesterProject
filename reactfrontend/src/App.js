@@ -9,18 +9,23 @@ import {
   Switch
 } from 'react-router-dom'
 import fetchFactory from './FetchFactory';
+import cars from './Dummydatacars.json';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      airportLabels: ""
+      airportLabels: "",
+      cars: ""
     }
   }
   componentDidMount() {
     fetchFactory.getLabelsForAirports()
     .then(res => this.setState({
-      airportLabels: res
+      airportLabels: res,
+      cars: cars.cars
+    }, () => {
+      console.log(this.state.cars)
     }))
   }
   render() {
@@ -32,7 +37,7 @@ class App extends Component {
         <Switch>
         <Route exact path="/" />
         <Route path="/Flights" render={({match}) => <Lufthavnsspecs match={match} airportLabels={this.state.airportLabels}/>} />
-        <Route path="/CarSearch" render={({match}) => <BilSøgning match={match}/>} />
+        <Route path="/CarSearch" render={({match}) => <BilSøgning match={match} cars={this.state.cars}/>} />
         <Route component={NoMatch}/>
         </Switch>
         </div>
