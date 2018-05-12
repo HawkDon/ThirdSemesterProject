@@ -4,11 +4,20 @@ import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css';
 import Autocomplete from 'react-autocomplete';
 
-function filterArray(array) {
+function filterCarArray(cars, location, make) {
+  const newCarArray = [];
+  for(let i = 0; i < cars.length; i++) {
+    if(cars[i].location === location && cars[i].make === make) {
+      newCarArray.push(cars[i])
+    }
+  };
+  return newCarArray;
+}
+
+function filterUniqueArray(array) {
   const filteredArray = [...new Set(array)]; 
   return filteredArray;
 }
-
 export default class CarSearch extends React.Component {
   constructor (props) {
     super(props)
@@ -17,8 +26,7 @@ export default class CarSearch extends React.Component {
       endDate: moment('2018-05-25'),
       locations: "",
       makes: ""
-    }
-    
+    } 
   }
 
   getFilteredLocations = () => {
@@ -34,16 +42,14 @@ export default class CarSearch extends React.Component {
   }
 
   handleSubmit = (evt) => {
-    console.log(this.getFilteredLocations())
-    console.log(this.getFilteredMakes())
-    let date = new Date("1995-01-17");
-    console.log(date);
-    console.log(date.getMonth());
-    evt.preventDefault();
-    //var Bilmærke= document.getElementById("Bilmærke").value;
-    //var Lejeområde = document.getElementById("Lejeområde").value;
-    var startDate = this.state.startDate.format();
-    var endDate = this.state.endDate.format();
+    const startDate = this.state.startDate.format();
+    const endDate = this.state.endDate.format();
+    const location = this.state.locations;
+    const make = this.state.makes;
+    const cars = this.props.cars;
+
+    let newCarArray = filterCarArray(cars, location, make);
+    console.log(newCarArray);
     }
 
   handleChange = ({ startDate, endDate }) => {
@@ -83,7 +89,7 @@ export default class CarSearch extends React.Component {
       </div>
       <label> Afhentningsted og afleveringsted :
         <Autocomplete
-        getItemValue={(item) => item.location}
+        getItemValue={(item) => item}
         items={this.getFilteredLocations()}
         shouldItemRender={(item, value) => item.toLowerCase().indexOf(value.toLowerCase()) > -1}
         renderItem={(item, isHighlighted) =>
@@ -98,7 +104,7 @@ export default class CarSearch extends React.Component {
       </label>
       <label>Bilmærke :
         <Autocomplete
-        getItemValue={(item) => item.make}
+        getItemValue={(item) => item}
         items={this.getFilteredMakes()}
         shouldItemRender={(item, value) => item.toLowerCase().indexOf(value.toLowerCase()) > -1}
         renderItem={(item, isHighlighted) =>
