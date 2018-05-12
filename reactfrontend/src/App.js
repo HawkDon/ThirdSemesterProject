@@ -24,8 +24,6 @@ class App extends Component {
     .then(res => this.setState({
       airportLabels: res,
       cars: cars.cars
-    }, () => {
-      console.log(this.state.cars)
     }))
   }
   render() {

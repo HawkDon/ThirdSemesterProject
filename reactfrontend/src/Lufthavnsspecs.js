@@ -62,7 +62,6 @@ function simplifyArray (getFlightDataStrings) {
   return simpleArrayForFlightInformation;
 }
 
-
 export default class DateRange extends React.Component {
   constructor (props) {
     super(props)
