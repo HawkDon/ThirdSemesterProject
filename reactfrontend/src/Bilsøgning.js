@@ -4,6 +4,11 @@ import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css';
 import Autocomplete from 'react-autocomplete';
 
+function filterArray(array) {
+  const filteredArray = [...new Set(array)]; 
+  return filteredArray;
+}
+
 export default class CarSearch extends React.Component {
   constructor (props) {
     super(props)
@@ -16,7 +21,21 @@ export default class CarSearch extends React.Component {
     
   }
 
+  getFilteredLocations = () => {
+    let mapFilteredLocations = this.props.cars.map(item => item.location)
+    const filteredLocations = filterArray(mapFilteredLocations);
+    return filteredLocations;
+  }
+
+  getFilteredMakes = () => {
+    let mapFilteredLocations = this.props.cars.map(item => item.make);
+    const filteredMakes = filterArray(mapFilteredLocations);
+    return filteredMakes;
+  }
+
   handleSubmit = (evt) => {
+    console.log(this.getFilteredLocations())
+    console.log(this.getFilteredMakes())
     let date = new Date("1995-01-17");
     console.log(date);
     console.log(date.getMonth());
@@ -65,11 +84,11 @@ export default class CarSearch extends React.Component {
       <label> Afhentningsted og afleveringsted :
         <Autocomplete
         getItemValue={(item) => item.location}
-        items={this.props.cars}
-        shouldItemRender={(item, value) => item.location.toLowerCase().indexOf(value.toLowerCase()) > -1}
+        items={this.getFilteredLocations()}
+        shouldItemRender={(item, value) => item.toLowerCase().indexOf(value.toLowerCase()) > -1}
         renderItem={(item, isHighlighted) =>
-        <div key={item.location} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-        {item.location}
+        <div key={item} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+        {item}
         </div>
       }
         value={this.state.locations}
@@ -80,11 +99,11 @@ export default class CarSearch extends React.Component {
       <label>Bilmærke :
         <Autocomplete
         getItemValue={(item) => item.make}
-        items={this.props.cars}
-        shouldItemRender={(item, value) => item.make.toLowerCase().indexOf(value.toLowerCase()) > -1}
+        items={this.getFilteredMakes()}
+        shouldItemRender={(item, value) => item.toLowerCase().indexOf(value.toLowerCase()) > -1}
         renderItem={(item, isHighlighted) =>
-        <div key={item.make} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-        {item.make}
+        <div key={item} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+        {item}
         </div>
       }
         value={this.state.makes}
