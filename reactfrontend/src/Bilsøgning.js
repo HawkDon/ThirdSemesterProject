@@ -31,13 +31,13 @@ export default class CarSearch extends React.Component {
 
   getFilteredLocations = () => {
     let mapFilteredLocations = this.props.cars.map(item => item.location)
-    const filteredLocations = filterArray(mapFilteredLocations);
+    const filteredLocations = filterUniqueArray(mapFilteredLocations);
     return filteredLocations;
   }
 
   getFilteredMakes = () => {
     let mapFilteredLocations = this.props.cars.map(item => item.make);
-    const filteredMakes = filterArray(mapFilteredLocations);
+    const filteredMakes = filterUniqueArray(mapFilteredLocations);
     return filteredMakes;
   }
 
