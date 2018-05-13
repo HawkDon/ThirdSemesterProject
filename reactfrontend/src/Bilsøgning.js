@@ -18,6 +18,7 @@ function filterUniqueArray(array) {
   const filteredArray = [...new Set(array)]; 
   return filteredArray;
 }
+
 export default class CarSearch extends React.Component {
   constructor (props) {
     super(props)
