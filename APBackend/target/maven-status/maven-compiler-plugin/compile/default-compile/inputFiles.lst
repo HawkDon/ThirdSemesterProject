@@ -1,7 +1,7 @@
-C:\Users\PC\Documents\NetBeansProjects\Github\ThirdSemesterProject\APBackend\src\main\java\rest\AirportResource.java
-C:\Users\PC\Documents\NetBeansProjects\Github\ThirdSemesterProject\APBackend\src\main\java\rest\ApplicationConfig.java
-C:\Users\PC\Documents\NetBeansProjects\Github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsRequestFilter.java
-C:\Users\PC\Documents\NetBeansProjects\Github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsResponseFilter.java
-C:\Users\PC\Documents\NetBeansProjects\Github\ThirdSemesterProject\APBackend\src\main\java\JsonMessages\AirportCodes.java
-C:\Users\PC\Documents\NetBeansProjects\Github\ThirdSemesterProject\APBackend\src\main\java\LogicFacade\RestCalls.java
-C:\Users\PC\Documents\NetBeansProjects\Github\ThirdSemesterProject\APBackend\src\main\java\rest\TravelflightResource.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\TravelflightResource.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\LogicFacade\RestCalls.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\ApplicationConfig.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\JsonMessages\AirportCodes.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsResponseFilter.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsRequestFilter.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\AirportResource.java

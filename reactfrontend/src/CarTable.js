@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Bilsøgning from './Bilsøgning';
 import {
     NavLink,
     Switch,
@@ -47,7 +46,8 @@ export default class CarTable extends Component {
 //Set state to render a table in confirmation
     this.setState({
     tableArr: tableArr.map((res, index) =>
-    <tr key={index}><td>{res.company}</td>
+    <tr key={index}>
+    <td>{res.company}</td>
     <td>{res.make}</td>
     <td>{res.model}</td>
     <td>{res.year}</td>
@@ -56,13 +56,14 @@ export default class CarTable extends Component {
     });
     }
     render(){
-        console.log("on carTable " + this.state.carArray)
         const mappingOfCars = this.state.carArray.map((car, index) => <tr key={index}><td>{car.company}</td><td>{car.make}</td><td>{car.model}</td><td>{car.year}</td><td>{car.location}</td><td><input type="checkbox" name="myCar"/></td></tr>)
         return(
             <form>
             <div>
                 <table id="CarTable">
-                    <tr><th>Rental Company</th><th>Car brand</th><th>Car model</th><th>Productions year</th><th>Pick-up location</th><th>Choose your car</th></tr>
+                    <thead>
+                        <tr><th>Rental Company</th><th>Car brand</th><th>Car model</th><th>Productions year</th><th>Pick-up location</th><th>Choose your car</th></tr>
+                    </thead>
                     <tbody>
                         {mappingOfCars}
                     </tbody>

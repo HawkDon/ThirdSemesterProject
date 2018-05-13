@@ -25,9 +25,9 @@ function getArrayWithPrice (simpleArrayForFlightInformation, getPrice) {
 }
 
 function handleResponse (res, index, arr, from, to) {
-  const filterDeparture = res.filter(word => word == from);
-  const filterArrival = res.filter(word => word == to);
-  if (res[0] == from) {
+  const filterDeparture = res.filter(word => word === from);
+  const filterArrival = res.filter(word => word === to);
+  if (res[0] === from) {
     return <tr key={index++}>
       <td>{filterDeparture}</td>
       <td>{filterArrival}</td>
@@ -39,7 +39,7 @@ function handleResponse (res, index, arr, from, to) {
       <td>{res[14]}</td>
       <td><input type="checkbox" name="myFlight" id={index++}/></td>
       </tr>
-  } else if(res[0] == to) {
+  } else if(res[0] === to) {
     return <tr key={index++}>
       <td>{filterArrival}</td>
       <td>{filterDeparture}</td>
@@ -66,8 +66,8 @@ export default class DateRange extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      startDate: moment('2018-05-14'),
-      endDate: moment('2018-05-17'),
+      startDate: moment('2018-07-07'),
+      endDate: moment('2018-07-09'),
       flights: "Fetching!!",
       airportcode1: "",
       airportcode2: ""

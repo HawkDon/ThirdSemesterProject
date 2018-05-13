@@ -28,7 +28,7 @@ public class RestCalls {
         URL url = new URL(endString);
 
         HttpURLConnection request = (HttpURLConnection) url.openConnection();
-        request.addRequestProperty("Authorization", "Bearer T1RLAQJUbWdB5ilO52HTIIYOLJrrjq84PRBBgCI7FmYP4/J7n4PFVWHgAADA5H5oe63IV9BqCfqubTeX52MUMojl2jmBvQypqdguB28Jme165SuMuyDy9CAKIyhPvJlxw4+0XRxvwiu2JzBaXFO8l43dnj5xP9xd6JqvNd/mcg9hDmxBt301Nyd24odDWuB3q6gczsR5+ACAScLuIrm23u9Ugb3VYc/LsvBfxk1IqE9QmFxMWR8CjH1q9OLRuSxD9wxB1JV5cxDbPwGpss0RUKAYFZqBfc7/Kg78C2oouSMdIaxPhFybxw1KZN/5");
+        request.addRequestProperty("Authorization", "Bearer T1RLAQLFb90rkaBRokK4+kR8CJfHV1a9mBApdRVIGUmfmjdmPzdQOjB5AADAbvK+d4PpyZTMEc9J3oaheZRg2rvzLhASXH1gwBebyY7iYkD0QJzbvi1bkqiPHa7wDC7pXlHo5OGqyXySOFDdXfYDN2Ogdl9UTZ2UNkOU+kc2POtEKCbU9MSJjYBfYINglKT34uDffllkq9WrmRWxTlu0KJ+1bHwbC0dwMUzFUk3dLQhU1eD4h6ybCXvm9BNPnuosV6VujTlAycI9EuMU1UT6c2lmCaxdZXMTUD/KAHnSLaCVImXUTzIO73RdVNN/");
         request.connect();
 
         // Convert to a JSON object to print data

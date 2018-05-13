@@ -1,6 +1,7 @@
 function handleHttpErrors(res) {
     if (!res.ok) {
-      throw {message:res.statusText,status:res.status};
+    const errorMessage = {message: res.statusText, status: res.status};
+    throw errorMessage;
     }
     return res.json();
 }

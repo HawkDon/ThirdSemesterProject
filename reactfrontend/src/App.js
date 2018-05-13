@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Lufthavnsspecs from './Lufthavnsspecs';
-import BilSøgning from './Bilsøgning';
+import FlightSearch from './FlightSearch';
+import CarSearch from './CarSearch';
 import {
   HashRouter as Router,
   Route,
@@ -34,8 +34,8 @@ class App extends Component {
         <Header/>
         <Switch>
         <Route exact path="/" />
-        <Route path="/Flights" render={({match}) => <Lufthavnsspecs match={match} airportLabels={this.state.airportLabels}/>} />
-        <Route path="/CarSearch" render={({match}) => <BilSøgning match={match} cars={this.state.cars}/>} />
+        <Route path="/Flights" render={({match}) => <FlightSearch match={match} airportLabels={this.state.airportLabels}/>} />
+        <Route path="/CarSearch" render={({match}) => <CarSearch match={match} cars={this.state.cars}/>} />
         <Route component={NoMatch}/>
         </Switch>
         </div>

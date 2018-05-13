@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CarTable from './CarTable';
 
 export default class ConfirmationCar extends Component {
   

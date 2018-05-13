@@ -5,7 +5,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Autocomplete from 'react-autocomplete';
 import CarTable from './CarTable';
 import {
-  HashRouter as Router,
   Route,
   NavLink,
   Switch
@@ -50,14 +49,13 @@ export default class CarSearch extends React.Component {
   }
 
   handleSubmit = (evt) => {
-    const startDate = this.state.startDate.format();
-    const endDate = this.state.endDate.format();
+    //const startDate = this.state.startDate.format();
+    //const endDate = this.state.endDate.format();
     const location = this.state.locations;
     const make = this.state.makes;
     const cars = this.props.cars;
 
     let newCarArray = filterCarArray(cars, location, make);
-    console.log(newCarArray);
     this.setState({
       newCarArray: newCarArray
     })
