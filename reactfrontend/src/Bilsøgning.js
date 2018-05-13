@@ -3,7 +3,13 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css';
 import Autocomplete from 'react-autocomplete';
-
+import CarTable from './CarTable';
+import {
+  HashRouter as Router,
+  Route,
+  NavLink,
+  Switch
+} from 'react-router-dom'
 function filterCarArray(cars, location, make) {
   const newCarArray = [];
   for(let i = 0; i < cars.length; i++) {
@@ -26,7 +32,8 @@ export default class CarSearch extends React.Component {
       startDate: moment('2018-05-20'),
       endDate: moment('2018-05-25'),
       locations: "",
-      makes: ""
+      makes: "",
+      newCarArray: ""
     } 
   }
 
@@ -51,7 +58,10 @@ export default class CarSearch extends React.Component {
 
     let newCarArray = filterCarArray(cars, location, make);
     console.log(newCarArray);
-    }
+    this.setState({
+      newCarArray: newCarArray
+    })
+  }
 
   handleChange = ({ startDate, endDate }) => {
     startDate = startDate || this.state.startDate
@@ -118,8 +128,13 @@ export default class CarSearch extends React.Component {
         onSelect={(makes) => this.setState({ makes })}
         />
         </label>
-      <input type="submit" value="Submit"/>
+        <NavLink className="btn btn-primary" onClick={this.handleSubmit} to={`${this.props.match.url}/CarTable`}>Search cars</NavLink>
     </form>
+    <Switch>
+    <Route path={`${this.props.match.url}/CarTable`} render={({match}) => <CarTable match={match} newCarArray={this.state.newCarArray}/>} />
+    </Switch>
+      
+  
     </div>
     );
   }
