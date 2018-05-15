@@ -9,7 +9,7 @@ import {
   Switch
 } from 'react-router-dom'
 import fetchFactory from './FetchFactory';
-import cars from './Dummydatacars.json';
+//import cars from './Dummydatacars.json';
 
 class App extends Component {
   constructor() {
@@ -23,8 +23,11 @@ class App extends Component {
     fetchFactory.getLabelsForAirports()
     .then(res => this.setState({
       airportLabels: res,
-      cars: cars.cars
     }))
+    fetchFactory.getCars().then(res => this.setState({
+      cars: res
+    }))
+    console.log("biler ", cars);
   }
   render() {
     return (

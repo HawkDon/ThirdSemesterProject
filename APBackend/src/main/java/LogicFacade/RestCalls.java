@@ -37,6 +37,17 @@ public class RestCalls {
         JsonObject rootObj = root.getAsJsonObject(); //May be an array, may be an object.
         return rootObj.toString();
     }
+    public static String getJsonFromCars(String endString) throws IOException {
+        URL url = new URL(endString);
+        HttpURLConnection request = (HttpURLConnection) url.openConnection();
+        request.connect();
+
+        // Convert to a JSON object to print data
+        JsonParser jp = new JsonParser(); //from gson
+        JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
+        JsonObject rootObj = root.getAsJsonObject(); //May be an array, may be an object.
+        return rootObj.toString();
+    }
 
     public static String getJsonFromiataAirportCodes(String SURL) throws IOException {
         //Aviation edge website fetch

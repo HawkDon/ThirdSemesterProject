@@ -12,6 +12,11 @@ class FetchFactory {
         .then(handleHttpErrors)
     }
 
+    getCars = (cars, location, make) => {
+        return fetch("http://localhost:8084/APBackend/api/Car/lejenbil")
+        .then(handleHttpErrors)
+    }
+
     getLabelsForAirports = () => {
         return fetch("https://hawkdon.dk/booking/api/airport/labels")
         .then(handleHttpErrors)

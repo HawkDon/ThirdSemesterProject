@@ -1,4 +1,5 @@
 cors\CorsRequestFilter.class
+rest\CarResource.class
 cors\CorsResponseFilter.class
 LogicFacade\RestCalls.class
 rest\AirportResource$1.class
