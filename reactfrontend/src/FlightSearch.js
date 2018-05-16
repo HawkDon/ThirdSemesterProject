@@ -11,60 +11,62 @@ import {
 import FetchFactory from './FetchFactory';
 import Autocomplete from 'react-autocomplete';
 
-function getArrayWithPrice (simpleArrayForFlightInformation, getPrice) {
-  const arrayFlight = simpleArrayForFlightInformation.map(res => res.split(" "));
-  let thirdArray = [];
-  let lengthForLoop = arrayFlight.length / 2;
-  let element;
-  for(let i = 0; i < lengthForLoop; i++) {
-      element = getPrice.shift() / 2;
-      thirdArray.push(arrayFlight[i].concat(element));
-      thirdArray.push(arrayFlight[i + 1].concat(element));
+function flightDataObject(res){
+  let obj = {
+    from: res.DepartureAirport.LocationCode,
+    to: res.ArrivalAirport.LocationCode,
+    fromDate: res.DepartureDateTime.slice(0,10),
+    toDate: res.DepartureDateTime.slice(0,10),
+    fromTime: res.DepartureDateTime.slice(11,19),
+    toTime: res.ArrivalDateTime.slice(11,19),
+    productLine: res.MarketingAirline.Code
   }
-  return thirdArray;
+  return obj;
 }
 
-function handleResponse (res, index, arr, from, to) {
-  const filterDeparture = res.filter(word => word === from);
-  const filterArrival = res.filter(word => word === to);
-  if (res[0] === from) {
-    return <tr key={index++}>
-      <td>{filterDeparture}</td>
-      <td>{filterArrival}</td>
-      <td>{res[1]}</td>
-      <td>{res[2]}</td>
-      <td>{res[11]}</td>
-      <td>{res[12]}</td>
-      <td>{res[6]}</td>
-      <td>{res[14]}</td>
-      <td><input type="checkbox" name="myFlight" id={index++}/></td>
-      </tr>
-  } else if(res[0] === to) {
-    return <tr key={index++}>
-      <td>{filterArrival}</td>
-      <td>{filterDeparture}</td>
-      <td>{res[1]}</td>
-      <td>{res[2]}</td>
-      <td>{res[11]}</td>
-      <td>{res[12]}</td>
-      <td>{res[6]}</td>
-      <td>{res[14]}</td>
+
+function handleResponse(flightDataAndPrice){
+  //To convert prices to table rows
+  const handlePrice = flightDataAndPrice.map((res) => <td>{res[2]}</td>);
+
+  let simpleDataTableDeparture = [];
+  let simpleDataTableArrival = [];
+  
+  //To get departures to table rows and push it over in an empty array to simplify
+  const flightDataTableDeparture = flightDataAndPrice.map(res => res.filter((res, index) => index === 0));
+  
+  flightDataTableDeparture.map(res => res.map(res => simpleDataTableDeparture.push(res)))
+  
+  //To get arrivals to table rows and push it over in an empty array to simplify
+  const flightDataTableArrival = flightDataAndPrice.map(res => res.filter((res, index) => index === 1));
+
+  flightDataTableArrival.map(res => res.map(res => simpleDataTableArrival.push(res)));
+
+  //Convert to JSX
+  let reactResponse = "";
+  let index = 0;
+//Continue from here.
+  console.log(simpleDataTableDeparture[0][0].from);
+  console.log(simpleDataTableArrival);
+  for(let i; i < simpleDataTableDeparture.length; i++) {
+    reactResponse += <tr key={index++}>
+      <td>{simpleDataTableDeparture[i][0]}</td>
+      <td>{simpleDataTableDeparture[i][0]}</td>
+      <td>{simpleDataTableDeparture[i][0]}</td>
+      <td>{simpleDataTableDeparture[i][0]}</td>
+      <td>{simpleDataTableDeparture[i][0]}</td>
+      <td>{simpleDataTableDeparture[i][0]}</td>
+      <td>{simpleDataTableDeparture[i][0]}</td>
       <td><input type="checkbox" name="myFlight" id={index++}/></td>
       </tr>
   }
-}
-
-function simplifyArray (getFlightDataStrings) {
-  let simpleArrayForFlightInformation = [];
-  getFlightDataStrings
-  .map(res => res
-  .map(res => simpleArrayForFlightInformation.push(res.join(' '))))
-  return simpleArrayForFlightInformation;
+   console.log(reactResponse);
+  return reactResponse;
 }
 
 export default class DateRange extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
     this.state = {
       startDate: moment('2018-07-07'),
       endDate: moment('2018-07-09'),
@@ -80,27 +82,27 @@ export default class DateRange extends React.Component {
     const endDate = this.state.endDate.format().slice(0,10);
     const startDate = this.state.startDate.format().slice(0, 10);
     
-    //Get Price from fetch
+    let flightDepArr = []
+    
+    //To get price of airports
     const getPrice = await FetchFactory.getFlights(from, to, startDate, endDate)
     .then(res => res.PricedItineraries.map(res => res.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.TotalFare.Amount));
     
-    //Get Information from fetch
-    const getFlightDataStrings = await FetchFactory.getFlights(from, to, startDate, endDate)
+    //To get information and pass it to our own array
+    await FetchFactory.getFlights(from, to, startDate, endDate)
     .then(res => res.PricedItineraries
-    .map(res => res.AirItinerary.OriginDestinationOptions.OriginDestinationOption
+    .map(res => flightDepArr.push(res.AirItinerary.OriginDestinationOptions.OriginDestinationOption
     .map(res => res.FlightSegment
-    .map(res => `${res.DepartureAirport.LocationCode} ${res.DepartureDateTime.slice(0,10)} ${res.DepartureDateTime.slice(11,19)} ${res.ArrivalAirport.LocationCode} ${res.ArrivalDateTime.slice(0,10)} ${res.ArrivalDateTime.slice(11,19)} ${res.MarketingAirline.Code}`))
+    .map(res => flightDataObject(res))))
     ))
     .catch(err => err);
-
-    //Simplify the array
-    const simplesimplifyArray = simplifyArray(getFlightDataStrings);
-
-    //Implement price to the flight array
-    const flightinformationWithPrice = getArrayWithPrice(simplesimplifyArray, getPrice);
-
+    
+    //To implement the price to the flightData array
+    const flightDataAndPrice = flightDepArr.map((res, index) => res.concat(getPrice[index]));
+    const flightDataTable = handleResponse(flightDataAndPrice);
+    
     this.setState({
-      flights: flightinformationWithPrice.map((res,index,arr) => handleResponse(res,index,arr,from,to))
+      flights: flightDataTable
     });
 
     }
