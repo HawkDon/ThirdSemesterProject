@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsResponseFilter.java
 C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\Entity\Airplanes.java
 C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\Entity\Message.java
@@ -5,3 +6,12 @@ C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\jav
 C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsRequestFilter.java
 C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\rest\ApplicationConfig.java
 C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\LogicFacade\RestCalls.java
+=======
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\TravelflightResource.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\LogicFacade\RestCalls.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\ApplicationConfig.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\JsonMessages\AirportCodes.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsResponseFilter.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsRequestFilter.java
+D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\AirportResource.java
+>>>>>>> ffe2d47d18259458a4720e7c151185a232fb4864

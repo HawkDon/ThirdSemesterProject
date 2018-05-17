@@ -6,14 +6,15 @@
 package rest;
 
 import LogicFacade.RestCalls;
-import java.io.IOException;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
+import java.io.IOException;
 
 /**
  * REST Web Service
@@ -42,13 +43,59 @@ public class TravelflightResource {
      * @param date
      * @return an instance of java.lang.String
      */
+    
+    //Get cheapest travel with days
     @GET
     @Path("/originlocation={from}&destination={to}&lengthofstay={days}&departuredate={date}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson(@PathParam("from") String from, @PathParam("to") String to, @PathParam("days") String days, @PathParam("date") String date) throws IOException {
+    public String getJsonForCheapestTravelWithDays(@PathParam("from") String from, @PathParam("to") String to, @PathParam("days") String days, @PathParam("date") String date) throws IOException {
 
         String endString = TRAVEL + "origin=" + from + "&destination=" + to + "&lengthofstay=" + days + "&departuredate=" + date + "&pointofsalecountry=US";
 
         return RestCalls.getJsonFromFlightTravel(endString);
     }
+    
+    //Get cheapest travel with date
+    @GET
+    @Path("/originlocation={from}&destination={to}&departuredate={startDate}&returndate={endDate}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJsonForCheapestTravelWithDate(@PathParam("from") String from, @PathParam("to") String to, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws IOException {
+        
+        String endString = "https://api-crt.cert.havail.sabre.com/v2/shop/flights?" + "origin=" + from + "&destination=" + to + "&departuredate=" + startDate + "&returndate=" + endDate + "&pointofsalecountry=US";
+       
+        return RestCalls.getJsonFromFlightTravel(endString);
+    }
+    //Get JsonForTravel and return
+    @GET
+    @Path("/originlocation={from}&destination={to}&departuredate={startDate}&returndate={endDate}&sortby={category}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJsonForTravel(@PathParam("from") String from, @PathParam("to") String to, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate, @PathParam("category") String category) throws IOException {
+                                                                                                                                                                                                                                                                                                              
+        String endString = "https://api-crt.cert.havail.sabre.com/v1/shop/flights?" + "origin=" + from + "&destination=" + to + "&departuredate=" + startDate + "&returndate=" + endDate + "&onlineitinerariesonly=N&limit=20&offset=1&eticketsonly=N&sortby=" + category + "&order=asc&sortby2="+ category + "&order2=asc&pointofsalecountry=US";
+       
+        return RestCalls.getJsonFromFlightTravel(endString);
+    }
+
+    //Get countrycodes
+    @GET
+    @Path("/countrycodes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJsonCountryCodes() throws IOException {
+
+        String endString = "https://api-crt.cert.havail.sabre.com/v1/lists/supported/countries";
+
+        return RestCalls.getJsonFromFlightTravel(endString);
+    }
+    
+    //Get countrycodes
+    @GET
+    @Path("/country={id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJsonAirportsByCountryCode(@PathParam("id") String id) throws IOException {
+
+        String endString = "https://api-crt.cert.havail.sabre.com/v1/lists/supported/cities?country=" + id;
+
+        return RestCalls.getJsonFromFlightTravel(endString);
+    }
+    
 }

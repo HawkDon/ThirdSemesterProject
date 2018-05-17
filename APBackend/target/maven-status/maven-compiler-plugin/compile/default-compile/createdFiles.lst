@@ -1,7 +1,15 @@
 cors\CorsRequestFilter.class
 cors\CorsResponseFilter.class
 LogicFacade\RestCalls.class
+<<<<<<< HEAD
 rest\TravelflightResource.class
 rest\ApplicationConfig.class
 Entity\Airplanes.class
 Entity\Message.class
+=======
+rest\AirportResource$1.class
+rest\TravelflightResource.class
+JsonMessages\AirportCodes.class
+rest\AirportResource.class
+rest\ApplicationConfig.class
+>>>>>>> ffe2d47d18259458a4720e7c151185a232fb4864

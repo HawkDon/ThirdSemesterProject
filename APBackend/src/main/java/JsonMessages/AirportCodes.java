@@ -3,11 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity;
+package JsonMessages;
 
 /**
  *
- * @author Oliver
+ * @author PC
  */
-public class Message<T> {
+public class AirportCodes{
+    public String label;
+
+    public AirportCodes(String label) {
+        this.label = label;
+    }
+   
+    
 }
