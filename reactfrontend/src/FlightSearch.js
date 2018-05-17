@@ -8,7 +8,6 @@ import FetchFactory from "./FetchFactory";
 import Autocomplete from "react-autocomplete";
 
 function flightDataObject(res) {
-
   let obj = {
     from: res.DepartureAirport.LocationCode,
     to: res.ArrivalAirport.LocationCode,
@@ -21,29 +20,34 @@ function flightDataObject(res) {
 
   return obj;
 }
-function getFinalFlightDataObject(getPrice, flightDataTableArrival, flightDataTableDeparture) {
-
+function getFinalFlightDataObject(
+  getPrice,
+  flightDataTableArrival,
+  flightDataTableDeparture
+) {
   let obj = {
     from: flightDataTableDeparture[0].from,
-    to: flightDataTableDeparture[flightDataTableDeparture.length-1].to,
+    to: flightDataTableDeparture[flightDataTableDeparture.length - 1].to,
     fromDate: flightDataTableDeparture[0].fromDate,
-    toDate: flightDataTableDeparture[flightDataTableDeparture.length-1].toDate,
+    toDate:
+      flightDataTableDeparture[flightDataTableDeparture.length - 1].toDate,
     fromTime: flightDataTableDeparture[0].fromTime,
-    toTime: flightDataTableDeparture[flightDataTableDeparture.length-1].toTime,
+    toTime:
+      flightDataTableDeparture[flightDataTableDeparture.length - 1].toTime,
     arrivals: [],
     departures: [],
     productLine: flightDataTableDeparture[0].productLine,
     price: getPrice,
-    getArrivals : function(array) {
+    getArrivals: function(array) {
       array.forEach(element => {
         this.arrivals.push(element);
       });
-   },
-    getDepartures : function(array) {
+    },
+    getDepartures: function(array) {
       array.forEach(element => {
-        this.departures.push(element)
+        this.departures.push(element);
       });
-  }
+    }
   };
 
   obj.getArrivals(flightDataTableArrival);
@@ -54,7 +58,6 @@ function getFinalFlightDataObject(getPrice, flightDataTableArrival, flightDataTa
 }
 
 function handleResponse(getPrice, flightData) {
-
   let simpleDataTableDeparture = [];
   let simpleDataTableArrival = [];
 
@@ -78,23 +81,32 @@ function handleResponse(getPrice, flightData) {
 
   //To get the ultimate flightdata table
   let developerFlightTable = [];
-  for(let i = 0; i < 20; i++) {
-    developerFlightTable.push(getFinalFlightDataObject(getPrice[i], simpleDataTableArrival[i], simpleDataTableDeparture[i]))
+  for (let i = 0; i < 20; i++) {
+    developerFlightTable.push(
+      getFinalFlightDataObject(
+        getPrice[i],
+        simpleDataTableArrival[i],
+        simpleDataTableDeparture[i]
+      )
+    );
   }
-
+  console.log(developerFlightTable);
   //Convert to JSX elements
-  const mappedFlightData = developerFlightTable.map( (res, index) => 
-  <tr key={index}>
-    <td>{res.from}</td>
-    <td>{res.to}</td>
-    <td>{res.fromDate}</td>
-    <td>{res.fromTime}</td>
-    <td>{res.toDate}</td>
-    <td>{res.toTime}</td>
-    <td>{res.productLine}</td>
-    <td>{res.price}</td>
-    <td><input type="checkbox" name="myFlight" id={index++}/></td>
-  </tr>)
+  const mappedFlightData = developerFlightTable.map((res, index) => (
+    <tr key={index}>
+      <td>{res.from}</td>
+      <td>{res.to}</td>
+      <td>{res.fromDate}</td>
+      <td>{res.fromTime}</td>
+      <td>{res.toDate}</td>
+      <td>{res.toTime}</td>
+      <td>{res.productLine}</td>
+      <td>{res.price}</td>
+      <td>
+        <input type="checkbox" name="myFlight" id={index++} />
+      </td>
+    </tr>
+  ));
 
   return mappedFlightData;
 }
@@ -118,18 +130,15 @@ export default class DateRange extends React.Component {
     const startDate = this.state.startDate.format().slice(0, 10);
 
     //To get price of airports in a not processed array.
-    const getPrice = await FetchFactory.getFlights(
-      from,
-      to,
-      startDate,
-      endDate
-    ).then(res =>
-      res.PricedItineraries.map(
-        res =>
-          res.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown
-            .PassengerFare.TotalFare.Amount
+    const getPrice = await FetchFactory.getFlights(from, to, startDate, endDate)
+      .then(res =>
+        res.PricedItineraries.map(
+          res =>
+            res.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown
+              .PassengerFare.TotalFare.Amount
+        )
       )
-    );
+      .catch(err => err);
 
     let flightData = [];
 
@@ -149,7 +158,6 @@ export default class DateRange extends React.Component {
     //to put the array into process.
     const flightDataTable = handleResponse(getPrice, flightData);
 
-    
     this.setState({
       flights: flightDataTable
     });
