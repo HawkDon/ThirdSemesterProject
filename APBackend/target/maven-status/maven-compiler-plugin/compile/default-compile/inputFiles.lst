@@ -1,17 +1,7 @@
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\CountriesResource.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\LogicFacade\RestCalls.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\AirplanesResource.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\DynamicData\FlighttrackerResource.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsResponseFilter.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\AirportsResource.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\CitiesResource.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\DynamicData\AutocompleteResource.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\Entity\Airplanes.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\AirlinesResource.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\CitybenchmarkResource.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\ApplicationConfig.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsRequestFilter.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\AirportbenchmarkResource.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\DynamicData\TimetablesResource.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\rest\AirlinebenchmarkResource.java
-D:\Github\ThirdSemesterProject\APBackend\src\main\java\Entity\Message.java
+C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsResponseFilter.java
+C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\Entity\Airplanes.java
+C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\Entity\Message.java
+C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\rest\TravelflightResource.java
+C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\cors\CorsRequestFilter.java
+C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\rest\ApplicationConfig.java
+C:\Users\Mathias BJ\Documents\github\ThirdSemesterProject\APBackend\src\main\java\LogicFacade\RestCalls.java
