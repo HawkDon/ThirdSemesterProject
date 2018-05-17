@@ -90,7 +90,7 @@ function handleResponse(getPrice, flightData) {
       )
     );
   }
-  console.log(developerFlightTable);
+
   //Convert to JSX elements
   const mappedFlightData = developerFlightTable.map((res, index) => (
     <tr key={index}>
@@ -130,21 +130,24 @@ export default class DateRange extends React.Component {
     const startDate = this.state.startDate.format().slice(0, 10);
 
     //To get price of airports in a not processed array.
-    const getPrice = await FetchFactory.getFlights(from, to, startDate, endDate)
-      .then(res =>
+    try {
+      const getPrice = await FetchFactory.getFlights(
+        from,
+        to,
+        startDate,
+        endDate
+      ).then(res =>
         res.PricedItineraries.map(
           res =>
             res.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown
               .PassengerFare.TotalFare.Amount
         )
-      )
-      .catch(err => err);
+      );
 
-    let flightData = [];
+      let flightData = [];
 
-    //To get information of airports in a not processed array.
-    await FetchFactory.getFlights(from, to, startDate, endDate)
-      .then(res =>
+      //To get information of airports in a not processed array.
+      await FetchFactory.getFlights(from, to, startDate, endDate).then(res =>
         res.PricedItineraries.map(res =>
           flightData.push(
             res.AirItinerary.OriginDestinationOptions.OriginDestinationOption.map(
@@ -152,15 +155,19 @@ export default class DateRange extends React.Component {
             )
           )
         )
-      )
-      .catch(err => err);
+      );
+      //to put the array into process.
+      const flightDataTable = handleResponse(getPrice, flightData);
 
-    //to put the array into process.
-    const flightDataTable = handleResponse(getPrice, flightData);
+      this.setState({
+        flights: flightDataTable
+      });
 
-    this.setState({
-      flights: flightDataTable
-    });
+    } catch (error) {
+      this.setState({
+        flights: error
+      });
+    }
   };
 
   handleChange = ({ startDate, endDate }) => {

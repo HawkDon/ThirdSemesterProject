@@ -26,8 +26,6 @@ class App extends Component {
       }))
     fetchFactory.getCars().then(res => this.setState({
       cars: res.cars,
-    }, () => {
-      console.log(this.state.cars)
     }))
   }
   render() {
