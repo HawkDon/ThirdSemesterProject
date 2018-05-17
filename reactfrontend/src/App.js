@@ -25,7 +25,7 @@ class App extends Component {
       airportLabels: res,
     }))
     fetchFactory.getCars().then(res => this.setState({
-      cars: res
+      cars: res.cars,
     }))
     console.log("biler ", cars);
   }

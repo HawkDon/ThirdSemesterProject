@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 
-@Path("Car")
+@Path("car")
 public class CarResource {
  Gson gson = new Gson();
     private final String TRAVEL = "https://stanitech.dk/carrentalapi/api/cars";
