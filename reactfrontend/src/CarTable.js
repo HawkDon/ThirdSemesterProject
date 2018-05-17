@@ -14,7 +14,7 @@ export default class CarTable extends Component {
             tableArr: "" 
         }
     }
-    handleSubmitData = async (event) => {
+    handleSubmitData = (event) => {
         // Get values
         let checkboxes = document.getElementsByName("myCar");
         let table = document.getElementById("CarTable");

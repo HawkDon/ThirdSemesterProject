@@ -9,7 +9,7 @@ import {
   Switch
 } from 'react-router-dom'
 import fetchFactory from './FetchFactory';
-import cars from './Dummydatacars.json';
+
 
 class App extends Component {
   constructor() {
@@ -21,25 +21,29 @@ class App extends Component {
   }
   componentDidMount() {
     fetchFactory.getLabelsForAirports()
-    .then(res => this.setState({
-      airportLabels: res,
-      cars: cars.cars
+      .then(res => this.setState({
+        airportLabels: res,
+      }))
+    fetchFactory.getCars().then(res => this.setState({
+      cars: res.cars,
+    }, () => {
+      console.log(this.state.cars)
     }))
   }
   render() {
     return (
 
       <Router>
-      <div>
-        <Header/>
-        <Switch>
-        <Route exact path="/" />
-        <Route path="/Flights" render={({match}) => <FlightSearch match={match} airportLabels={this.state.airportLabels}/>} />
-        <Route path="/CarSearch" render={({match}) => <CarSearch match={match} cars={this.state.cars}/>} />
-        <Route component={NoMatch}/>
-        </Switch>
+        <div>
+          <Header />
+          <Switch>
+            <Route exact path="/" />
+            <Route path="/Flights" render={({ match }) => <FlightSearch match={match} airportLabels={this.state.airportLabels} />} />
+            <Route path="/CarSearch" render={({ match }) => <CarSearch match={match} cars={this.state.cars} />} />
+            <Route component={NoMatch} />
+          </Switch>
         </div>
-  </Router>
+      </Router>
     );
   }
 }
@@ -53,10 +57,10 @@ const NoMatch = ({ location }) => (
 const Header = () => (
 
   <div>
-  <ul className="header">
-    <li><NavLink activeClassName="active" exact to="/Flights">Flyrejse</NavLink></li>
-    <li><NavLink activeClassName="active" exact to="/CarSearch">Lej en bil</NavLink></li>
-  </ul>
+    <ul className="header">
+      <li><NavLink activeClassName="active" exact to="/Flights">Flyrejse</NavLink></li>
+      <li><NavLink activeClassName="active" exact to="/CarSearch">Lej en bil</NavLink></li>
+    </ul>
   </div>
 )
 
